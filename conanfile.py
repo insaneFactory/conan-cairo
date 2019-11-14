@@ -64,6 +64,9 @@ class CairoConan(ConanFile):
         os.rename('cairo-%s' % self.version, self._source_subfolder)
         os.unlink(archive_name)
 
+        tools.replace_in_file(os.path.join(self._source_subfolder, "configure"), "-Werror-implicit-function-declaration", "-Wimplicit-function-declaration")
+        tools.replace_in_file(os.path.join(self._source_subfolder, "build", "configure.ac.warnings"), "-Werror-implicit-function-declaration", "-Wimplicit-function-declaration")
+
     def build(self):
         if self.is_msvc:
             self._build_msvc()
